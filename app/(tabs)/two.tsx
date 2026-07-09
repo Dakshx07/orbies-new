@@ -178,17 +178,17 @@ export default function ExploreScreen() {
                 <Text style={styles.bannerSubText}>Join the movement this July</Text>
                 
                 <View style={styles.chevronCircle}>
-                  <Feather name="chevron-right" size={24} color="#FF7A00" />
+                  <Feather name="chevron-right" size={24} color="#FFFFFF" />
                 </View>
               </View>
 
               {/* Card 2: Design Masterclass (Center Card) */}
-              <View style={[styles.orangeBanner, styles.orangeBannerSecondary, { width: screenWidth - 80 }]}>
+              <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
                 <Text style={styles.bannerTitleText}>Design Masterclass</Text>
                 <Text style={styles.bannerSubText}>Sharpen your product design craft</Text>
                 
                 <View style={styles.chevronCircle}>
-                  <Feather name="chevron-right" size={24} color="#FF5100" />
+                  <Feather name="chevron-right" size={24} color="#FFFFFF" />
                 </View>
               </View>
 
@@ -198,7 +198,7 @@ export default function ExploreScreen() {
                 <Text style={styles.bannerSubText}>Pitch to top tier investors</Text>
                 
                 <View style={styles.chevronCircle}>
-                  <Feather name="chevron-right" size={24} color="#FF7A00" />
+                  <Feather name="chevron-right" size={24} color="#FFFFFF" />
                 </View>
               </View>
             </ScrollView>
@@ -314,9 +314,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
   },
-  orangeBannerSecondary: {
-    backgroundColor: '#FF5100', // Crimson orange for secondary carousel card
-  },
   bannerTitleText: {
     fontSize: 18,
     fontWeight: '800',
@@ -335,7 +332,6 @@ const styles = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: '#FFFFFF', // Clean white background circle
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000000',
