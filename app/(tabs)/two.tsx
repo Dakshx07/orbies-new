@@ -111,99 +111,6 @@ export default function ExploreScreen() {
     });
   }, [searchQuery, selectedTag]);
 
-  // Render header elements inside FlatList ListHeaderComponent to avoid nesting scrollview warnings
-  const renderHeader = () => (
-    <View style={styles.headerWrapper}>
-      {/* 1. Explore Cursive SVG Header */}
-      <View style={styles.logoRow}>
-        <ExploreTextSvg />
-      </View>
-
-      {/* 2. Interactive Search Box */}
-      <View style={styles.searchContainer}>
-        <Feather name="search" size={20} color="#666" style={styles.searchIcon} />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search..."
-          placeholderTextColor="#000000B8"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-          clearButtonMode="while-editing"
-        />
-      </View>
-
-      {/* 3. Horizontal Tags Scroll list — edge-to-edge, no container clipping */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.tagsScrollView}
-        contentContainerStyle={styles.tagsScrollContainer}
-      >
-        {FILTER_TAGS.map((tag) => {
-          const isActive = selectedTag === tag;
-          return (
-            <Pressable
-              key={tag}
-              onPress={() => setSelectedTag(tag)}
-              style={[styles.tagPill, isActive && styles.tagPillActive]}
-            >
-              <Text style={[styles.tagText, isActive && styles.tagTextActive]}>
-                {tag}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </ScrollView>
-
-      {/* 4. Large Orange Spotlight Card Carousel/Banner */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={[styles.bannerScrollView, { width: screenWidth }]}
-        contentContainerStyle={styles.bannerContainer}
-        snapToInterval={screenWidth - 68}
-        decelerationRate="fast"
-        contentOffset={{ x: screenWidth - 68, y: 0 }}
-      >
-        {/* Card 1: Goa Beach Cleanup Campaign */}
-        <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
-          <Text style={styles.bannerTitleText}>Goa Beach Cleanup Campaign</Text>
-          <Text style={styles.bannerSubText}>Join the movement this July</Text>
-          
-          <View style={styles.chevronCircle}>
-            <Feather name="chevron-right" size={24} color="#FF7A00" />
-          </View>
-        </View>
-
-        {/* Card 2: Design Masterclass (Center Card) */}
-        <View style={[styles.orangeBanner, styles.orangeBannerSecondary, { width: screenWidth - 80 }]}>
-          <Text style={styles.bannerTitleText}>Design Masterclass</Text>
-          <Text style={styles.bannerSubText}>Sharpen your product design craft</Text>
-          
-          <View style={styles.chevronCircle}>
-            <Feather name="chevron-right" size={24} color="#FF5100" />
-          </View>
-        </View>
-
-        {/* Card 3: Startup Pitch Deck */}
-        <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
-          <Text style={styles.bannerTitleText}>Startup Pitch Deck</Text>
-          <Text style={styles.bannerSubText}>Pitch to top tier investors</Text>
-          
-          <View style={styles.chevronCircle}>
-            <Feather name="chevron-right" size={24} color="#FF7A00" />
-          </View>
-        </View>
-      </ScrollView>
-
-      {/* 5. Section Header Text Row — Caveat handwritten font */}
-      <View style={styles.sectionHeaderRow}>
-        <Text style={styles.sectionTitleText}>All opportunities</Text>
-        <Text style={styles.sectionCountText}>{filteredOpportunities.length} found!</Text>
-      </View>
-    </View>
-  );
-
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="dark" />
@@ -212,7 +119,97 @@ export default function ExploreScreen() {
         data={filteredOpportunities}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <OpportunityCard opportunity={item} />}
-        ListHeaderComponent={renderHeader}
+        ListHeaderComponent={
+          <View style={styles.headerWrapper}>
+            {/* 1. Explore Cursive SVG Header */}
+            <View style={styles.logoRow}>
+              <ExploreTextSvg />
+            </View>
+
+            {/* 2. Interactive Search Box */}
+            <View style={styles.searchContainer}>
+              <Feather name="search" size={20} color="#666" style={styles.searchIcon} />
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search..."
+                placeholderTextColor="#000000B8"
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                clearButtonMode="while-editing"
+              />
+            </View>
+
+            {/* 3. Horizontal Tags Scroll list — edge-to-edge, no container clipping */}
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={styles.tagsScrollView}
+              contentContainerStyle={styles.tagsScrollContainer}
+            >
+              {FILTER_TAGS.map((tag) => {
+                const isActive = selectedTag === tag;
+                return (
+                  <Pressable
+                    key={tag}
+                    onPress={() => setSelectedTag(tag)}
+                    style={[styles.tagPill, isActive && styles.tagPillActive]}
+                  >
+                    <Text style={[styles.tagText, isActive && styles.tagTextActive]}>
+                      {tag}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </ScrollView>
+
+            {/* 4. Large Orange Spotlight Card Carousel/Banner */}
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={[styles.bannerScrollView, { width: screenWidth }]}
+              contentContainerStyle={styles.bannerContainer}
+              snapToInterval={screenWidth - 68}
+              decelerationRate="fast"
+              contentOffset={{ x: screenWidth - 68, y: 0 }}
+            >
+              {/* Card 1: Goa Beach Cleanup Campaign */}
+              <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
+                <Text style={styles.bannerTitleText}>Goa Beach Cleanup Campaign</Text>
+                <Text style={styles.bannerSubText}>Join the movement this July</Text>
+                
+                <View style={styles.chevronCircle}>
+                  <Feather name="chevron-right" size={24} color="#FF7A00" />
+                </View>
+              </View>
+
+              {/* Card 2: Design Masterclass (Center Card) */}
+              <View style={[styles.orangeBanner, styles.orangeBannerSecondary, { width: screenWidth - 80 }]}>
+                <Text style={styles.bannerTitleText}>Design Masterclass</Text>
+                <Text style={styles.bannerSubText}>Sharpen your product design craft</Text>
+                
+                <View style={styles.chevronCircle}>
+                  <Feather name="chevron-right" size={24} color="#FF5100" />
+                </View>
+              </View>
+
+              {/* Card 3: Startup Pitch Deck */}
+              <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
+                <Text style={styles.bannerTitleText}>Startup Pitch Deck</Text>
+                <Text style={styles.bannerSubText}>Pitch to top tier investors</Text>
+                
+                <View style={styles.chevronCircle}>
+                  <Feather name="chevron-right" size={24} color="#FF7A00" />
+                </View>
+              </View>
+            </ScrollView>
+
+            {/* 5. Section Header Text Row — Caveat handwritten font */}
+            <View style={styles.sectionHeaderRow}>
+              <Text style={styles.sectionTitleText}>All opportunities</Text>
+              <Text style={styles.sectionCountText}>{filteredOpportunities.length} found!</Text>
+            </View>
+          </View>
+        }
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
