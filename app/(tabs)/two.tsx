@@ -114,14 +114,6 @@ export default function ExploreScreen() {
   // Render header elements inside FlatList ListHeaderComponent to avoid nesting scrollview warnings
   const renderHeader = () => (
     <View style={styles.headerWrapper}>
-      {/* Background Gradient Glow Blur Effect */}
-      <View style={styles.glowOverlay}>
-        <LinearGradient
-          colors={['rgba(255, 122, 0, 0.08)', 'rgba(255, 122, 0, 0.02)', 'transparent']}
-          style={StyleSheet.absoluteFill}
-        />
-      </View>
-
       {/* 1. Explore Cursive SVG Header */}
       <View style={styles.logoRow}>
         <ExploreTextSvg />
@@ -167,28 +159,39 @@ export default function ExploreScreen() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={styles.bannerScrollView}
+        style={[styles.bannerScrollView, { width: screenWidth }]}
         contentContainerStyle={styles.bannerContainer}
-        snapToInterval={screenWidth - 60}
+        snapToInterval={screenWidth - 68}
         decelerationRate="fast"
+        contentOffset={{ x: screenWidth - 68, y: 0 }}
       >
-        {/* Main orange banner block from Figma mockup */}
-        <View style={[styles.orangeBanner, { width: screenWidth - 64 }]}>
+        {/* Card 1: Goa Beach Cleanup Campaign */}
+        <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
           <Text style={styles.bannerTitleText}>Goa Beach Cleanup Campaign</Text>
           <Text style={styles.bannerSubText}>Join the movement this July</Text>
           
           <View style={styles.chevronCircle}>
-            <Feather name="chevron-right" size={24} color="#FFFFFF" />
+            <Feather name="chevron-right" size={24} color="#FF7A00" />
           </View>
         </View>
 
-        {/* Secondary banner for slider depth effect */}
-        <View style={[styles.orangeBanner, styles.orangeBannerSecondary, { width: screenWidth - 64 }]}>
+        {/* Card 2: Design Masterclass (Center Card) */}
+        <View style={[styles.orangeBanner, styles.orangeBannerSecondary, { width: screenWidth - 80 }]}>
           <Text style={styles.bannerTitleText}>Design Masterclass</Text>
           <Text style={styles.bannerSubText}>Sharpen your product design craft</Text>
           
           <View style={styles.chevronCircle}>
-            <Feather name="chevron-right" size={24} color="#FFFFFF" />
+            <Feather name="chevron-right" size={24} color="#FF5100" />
+          </View>
+        </View>
+
+        {/* Card 3: Startup Pitch Deck */}
+        <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
+          <Text style={styles.bannerTitleText}>Startup Pitch Deck</Text>
+          <Text style={styles.bannerSubText}>Pitch to top tier investors</Text>
+          
+          <View style={styles.chevronCircle}>
+            <Feather name="chevron-right" size={24} color="#FF7A00" />
           </View>
         </View>
       </ScrollView>
@@ -299,35 +302,23 @@ const styles = StyleSheet.create({
   },
   bannerContainer: {
     flexDirection: 'row',
-    paddingHorizontal: 20,
+    paddingHorizontal: 40, // Allows symmetric 28px peek on both left & right edges
     marginBottom: 24,
     gap: 12,
   },
-  glowOverlay: {
-    position: 'absolute',
-    top: 220,
-    left: -20,
-    right: -20,
-    height: 220,
-    zIndex: -1,
-  },
+
   orangeBanner: {
     height: 96,
     backgroundColor: '#FF7A00', // Brand Orange
     borderRadius: 32,
-    padding: 20,
+    paddingVertical: 20,
+    paddingLeft: 24,
+    paddingRight: 64, // Keep spacing for chevron circle
     justifyContent: 'center',
     position: 'relative',
-    // Premium drop shadow (large blurred orange shadow)
-    shadowColor: '#FF7A00',
-    shadowOffset: { width: 0, height: 12 },
-    shadowOpacity: 0.28,
-    shadowRadius: 20,
-    elevation: 6,
   },
   orangeBannerSecondary: {
     backgroundColor: '#FF5100', // Crimson orange for secondary carousel card
-    shadowColor: '#FF5100',
   },
   bannerTitleText: {
     fontSize: 18,
@@ -347,7 +338,7 @@ const styles = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 19,
-    
+    backgroundColor: '#FFFFFF', // Clean white background circle
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000000',
