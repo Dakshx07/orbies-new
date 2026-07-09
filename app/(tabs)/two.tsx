@@ -133,17 +133,18 @@ export default function ExploreScreen() {
         <TextInput
           style={styles.searchInput}
           placeholder="Search..."
-          placeholderTextColor="#9E9E9E"
+          placeholderTextColor="#000000B8"
           value={searchQuery}
           onChangeText={setSearchQuery}
           clearButtonMode="while-editing"
         />
       </View>
 
-      {/* 3. Horizontal Tags Scroll list */}
+      {/* 3. Horizontal Tags Scroll list — edge-to-edge, no container clipping */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
+        style={styles.tagsScrollView}
         contentContainerStyle={styles.tagsScrollContainer}
       >
         {FILTER_TAGS.map((tag) => {
@@ -166,6 +167,7 @@ export default function ExploreScreen() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
+        style={styles.bannerScrollView}
         contentContainerStyle={styles.bannerContainer}
         snapToInterval={screenWidth - 60}
         decelerationRate="fast"
@@ -176,7 +178,7 @@ export default function ExploreScreen() {
           <Text style={styles.bannerSubText}>Join the movement this July</Text>
           
           <View style={styles.chevronCircle}>
-            <Feather name="chevron-right" size={24} color="#FF7A00" />
+            <Feather name="chevron-right" size={24} color="#FFFFFF" />
           </View>
         </View>
 
@@ -186,12 +188,12 @@ export default function ExploreScreen() {
           <Text style={styles.bannerSubText}>Sharpen your product design craft</Text>
           
           <View style={styles.chevronCircle}>
-            <Feather name="chevron-right" size={24} color="#FF5100" />
+            <Feather name="chevron-right" size={24} color="#FFFFFF" />
           </View>
         </View>
       </ScrollView>
 
-      {/* 5. Section Header Text Row */}
+      {/* 5. Section Header Text Row — Caveat handwritten font */}
       <View style={styles.sectionHeaderRow}>
         <Text style={styles.sectionTitleText}>All opportunities</Text>
         <Text style={styles.sectionCountText}>{filteredOpportunities.length} found!</Text>
@@ -231,78 +233,82 @@ const styles = StyleSheet.create({
     paddingBottom: 110, // Safe padding to prevent floating tab bar overlap
   },
   headerWrapper: {
-    paddingTop: 10,
-    marginBottom: 12,
+    paddingTop: 8,
+    marginBottom: 8,
   },
   logoRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
+    alignItems: 'flex-start',
+    marginBottom: 20,
+    marginLeft: 20,   // Figma: left: 40px (listContainer already adds 20)
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    borderWidth: 1.5,
-    borderColor: 'rgba(0, 0, 0, 0.15)',
-    borderRadius: 24,
-    height: 48,
-    paddingHorizontal: 16,
-    marginBottom: 16,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.02,
-    shadowRadius: 6,
-    elevation: 1,
+    borderWidth: 1,
+    borderColor: '#000000',
+    borderRadius: 28,
+    height: 44,
+    paddingHorizontal: 14,
+    marginBottom: 14,
   },
   searchIcon: {
     marginRight: 10,
   },
   searchInput: {
     flex: 1,
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: 15,
     color: '#000000',
+  },
+  tagsScrollView: {
+    marginHorizontal: -20,
   },
   tagsScrollContainer: {
     flexDirection: 'row',
-    paddingVertical: 4,
-    marginBottom: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 2,
+    paddingBottom: 16,
     gap: 8,
   },
   tagPill: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#000000',
-    borderRadius: 20,
-    paddingHorizontal: 18,
-    paddingVertical: 7,
+    backgroundColor: 'transparent',
+    borderWidth: 1.5,
+    borderColor: '#1A1A1A',
+    borderRadius: 50,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },
   tagPillActive: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: '#1A1A1A',
+    borderColor: '#1A1A1A',
   },
   tagText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#000000',
+    color: '#1A1A1A',
   },
   tagTextActive: {
     color: '#FFFFFF',
   },
+  bannerScrollView: {
+    marginHorizontal: -20,
+    width: '100%',
+  },
   bannerContainer: {
     flexDirection: 'row',
+    paddingHorizontal: 20,
     marginBottom: 24,
     gap: 12,
   },
   glowOverlay: {
     position: 'absolute',
-    top: 130,
+    top: 220,
     left: -20,
     right: -20,
-    height: 250,
+    height: 220,
     zIndex: -1,
   },
   orangeBanner: {
@@ -341,7 +347,7 @@ const styles = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: '#FFFFFF',
+    
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000000',
@@ -353,23 +359,21 @@ const styles = StyleSheet.create({
   sectionHeaderRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 8,
+    alignItems: 'baseline',
+    marginTop: 4,
     marginBottom: 16,
   },
   sectionTitleText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#000000',
-    letterSpacing: -0.24,
-    lineHeight: 20,
+    fontFamily: 'Caveat_700Bold',  // Figma Hand equivalent
+    fontSize: 24,
+    color: '#1A1A1A',
+    lineHeight: 28,
   },
   sectionCountText: {
-    fontSize: 14,
-    fontWeight: '700',
+    fontFamily: 'Caveat_700Bold',  // Figma Hand equivalent
+    fontSize: 22,
     color: '#FF7A00',
-    letterSpacing: -0.2,
-    lineHeight: 20,
+    lineHeight: 26,
   },
   emptyContainer: {
     alignItems: 'center',

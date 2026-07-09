@@ -4,9 +4,9 @@ import Svg, { Path, SvgProps } from 'react-native-svg';
 export const ExploreTextSvg = (props: SvgProps) => {
   return (
     <Svg
-      width={160}
-      height={45}
-      viewBox="35 42 160 44"
+      width={147}
+      height={60}
+      viewBox="36 42 150 50"
       fill="none"
       {...props}
     >
