@@ -48,7 +48,7 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
         {/* Left Featured Square */}
         <View style={styles.imagePlaceholder}>
           {opportunity.isFeatured && (
-            <Ionicons name="star" size={20} color="#FF7A00" style={styles.starIcon} />
+            <Ionicons name="star" size={18} color="#FF7A00" style={styles.starIcon} />
           )}
         </View>
 
@@ -117,7 +117,7 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 24,
+    borderRadius: 28, // Rounded like Figma
     padding: 16,
     marginBottom: 16,
     // Soft shadow for premium look
@@ -134,9 +134,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   imagePlaceholder: {
-    width: 82,
-    height: 82,
-    borderRadius: 24,
+    width: 106,
+    height: 107,
+    borderRadius: 24, // Exact Figma specification
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: 'rgba(0, 0, 0, 0.08)',
@@ -144,12 +144,12 @@ const styles = StyleSheet.create({
   },
   starIcon: {
     position: 'absolute',
-    top: 10,
-    left: 10,
+    top: 12,
+    left: 12,
   },
   infoColumn: {
     flex: 1,
-    marginLeft: 14,
+    marginLeft: 16,
   },
   titleText: {
     fontSize: 16,
@@ -181,14 +181,10 @@ const styles = StyleSheet.create({
   },
   viewsContainer: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: 2,
+    right: 2,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.02)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
   },
   eyeIcon: {
     marginRight: 4,
@@ -200,13 +196,13 @@ const styles = StyleSheet.create({
   },
   actionsRow: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 12,
     gap: 8,
   },
   joinButton: {
     backgroundColor: '#000000',
     borderRadius: 100,
-    height: 32,
+    height: 34,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -217,14 +213,14 @@ const styles = StyleSheet.create({
   joinButtonText: {
     color: '#FFFFFF',
     fontSize: 13,
-    fontWeight: '700',
+    fontWeight: '600',
     letterSpacing: -0.1,
   },
   inviteButton: {
     flex: 1,
     backgroundColor: '#FFF1E0', // Soft peach/beige button background matching screenshot
     borderRadius: 100,
-    height: 32,
+    height: 34,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -234,7 +230,7 @@ const styles = StyleSheet.create({
   inviteButtonText: {
     color: '#000000',
     fontSize: 13,
-    fontWeight: '700',
+    fontWeight: '600',
     letterSpacing: -0.1,
   },
   btnIcon: {
