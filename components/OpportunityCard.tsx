@@ -48,7 +48,7 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
         {/* Left Featured Square */}
         <View style={styles.imagePlaceholder}>
           {opportunity.isFeatured && (
-            <Ionicons name="star" size={24} color="#FF7A00" style={styles.starIcon} />
+            <Ionicons name="star" size={20} color="#FF7A00" style={styles.starIcon} />
           )}
         </View>
 
@@ -74,6 +74,34 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
               </Text>
             </View>
           </View>
+
+          {/* Button Actions Row (now inside infoColumn, next to square box) */}
+          <View style={styles.actionsRow}>
+            <Animated.View style={{ transform: [{ scale: scaleAnim }], flex: 1 }}>
+              <Pressable
+                onPress={handleJoinPress}
+                style={[
+                  styles.joinButton,
+                  joined && styles.joinedButtonState
+                ]}
+              >
+                <Feather 
+                  name={joined ? "check" : "plus"} 
+                  size={13} 
+                  color="#FFF" 
+                  style={styles.btnIcon} 
+                />
+                <Text style={styles.joinButtonText}>
+                  {joined ? "Joined" : "Join"}
+                </Text>
+              </Pressable>
+            </Animated.View>
+
+            <Pressable style={styles.inviteButton}>
+              <Feather name="user-plus" size={13} color="#000" style={styles.btnIcon} />
+              <Text style={styles.inviteButtonText}>Invite</Text>
+            </Pressable>
+          </View>
         </View>
 
         {/* Right Views Indicator */}
@@ -81,34 +109,6 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
           <Feather name="eye" size={14} color="#A3A3A3" style={styles.eyeIcon} />
           <Text style={styles.viewsText}>{opportunity.viewsCount}</Text>
         </View>
-      </View>
-
-      {/* Bottom Button Actions Row */}
-      <View style={styles.actionsRow}>
-        <Animated.View style={{ transform: [{ scale: scaleAnim }], flex: 1.1 }}>
-          <Pressable
-            onPress={handleJoinPress}
-            style={[
-              styles.joinButton,
-              joined && styles.joinedButtonState
-            ]}
-          >
-            <Feather 
-              name={joined ? "check" : "plus"} 
-              size={14} 
-              color="#FFF" 
-              style={styles.btnIcon} 
-            />
-            <Text style={styles.joinButtonText}>
-              {joined ? "Joined" : "Join"}
-            </Text>
-          </Pressable>
-        </Animated.View>
-
-        <Pressable style={styles.inviteButton}>
-          <Feather name="user-plus" size={14} color="#000" style={styles.btnIcon} />
-          <Text style={styles.inviteButtonText}>Invite</Text>
-        </Pressable>
       </View>
     </View>
   );
@@ -134,17 +134,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   imagePlaceholder: {
-    width: 68,
-    height: 68,
-    borderRadius: 18,
+    width: 82,
+    height: 82,
+    borderRadius: 24,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: 'rgba(0, 0, 0, 0.08)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: 'relative',
   },
   starIcon: {
-    // Exact orange star in Figma design
+    position: 'absolute',
+    top: 10,
+    left: 10,
   },
   infoColumn: {
     flex: 1,
@@ -199,13 +200,13 @@ const styles = StyleSheet.create({
   },
   actionsRow: {
     flexDirection: 'row',
-    marginTop: 16,
-    gap: 10,
+    marginTop: 10,
+    gap: 8,
   },
   joinButton: {
     backgroundColor: '#000000',
     borderRadius: 100,
-    height: 38,
+    height: 32,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
   },
   joinButtonText: {
     color: '#FFFFFF',
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
     letterSpacing: -0.1,
   },
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF1E0', // Soft peach/beige button background matching screenshot
     borderRadius: 100,
-    height: 38,
+    height: 32,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
   },
   inviteButtonText: {
     color: '#000000',
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
     letterSpacing: -0.1,
   },
