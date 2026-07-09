@@ -58,20 +58,21 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
             {opportunity.title} • {opportunity.location}
           </Text>
 
-          {/* Date Row */}
-          <View style={styles.infoRow}>
-            <Feather name="briefcase" size={14} color="#FF7A00" style={styles.rowIcon} />
-            <Text style={styles.infoText}>
-              {opportunity.startDate} → {opportunity.endDate}
-            </Text>
-          </View>
+          {/* Metadata Row (Dates & Attendees side-by-side in one row) */}
+          <View style={styles.metaRow}>
+            <View style={styles.metaItem}>
+              <Feather name="briefcase" size={14} color="#FF7A00" style={styles.rowIcon} />
+              <Text style={styles.infoText}>
+                {opportunity.startDate} → {opportunity.endDate}
+              </Text>
+            </View>
 
-          {/* Attendees Row */}
-          <View style={styles.infoRow}>
-            <Feather name="users" size={14} color="#FF7A00" style={styles.rowIcon} />
-            <Text style={styles.infoText}>
-              {opportunity.goingCount} going!
-            </Text>
+            <View style={styles.metaItem}>
+              <Feather name="users" size={14} color="#FF7A00" style={styles.rowIcon} />
+              <Text style={styles.infoText}>
+                {opportunity.goingCount} going!
+              </Text>
+            </View>
           </View>
         </View>
 
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
   infoColumn: {
     flex: 1,
     marginLeft: 14,
-    paddingRight: 8,
   },
   titleText: {
     fontSize: 16,
@@ -157,11 +157,17 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     lineHeight: 20,
     letterSpacing: -0.2,
+    paddingRight: 55, // Prevent text overlap with views count
   },
-  infoRow: {
+  metaRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 10,
     marginBottom: 4,
+  },
+  metaItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   rowIcon: {
     marginRight: 6,
@@ -173,6 +179,9 @@ const styles = StyleSheet.create({
     letterSpacing: -0.1,
   },
   viewsContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.02)',
