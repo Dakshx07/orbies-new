@@ -112,7 +112,7 @@ export default function ExploreScreen() {
   }, [searchQuery, selectedTag]);
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={styles.container}>
       <StatusBar style="dark" />
 
       <FlatList
@@ -120,7 +120,7 @@ export default function ExploreScreen() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <OpportunityCard opportunity={item} />}
         ListHeaderComponent={
-          <View style={styles.headerWrapper}>
+          <View style={[styles.headerWrapper, { paddingTop: insets.top + 8 }]}>
             {/* 1. Explore Cursive SVG Header */}
             <View style={styles.logoRow}>
               <ExploreTextSvg />
@@ -210,7 +210,10 @@ export default function ExploreScreen() {
             </View>
           </View>
         }
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={[
+          styles.listContainer,
+          { paddingBottom: insets.bottom + 84 }
+        ]}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
@@ -230,7 +233,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingHorizontal: 20,
-    paddingBottom: 110, // Safe padding to prevent floating tab bar overlap
   },
   headerWrapper: {
     paddingTop: 8,

@@ -116,18 +116,8 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 28, // Rounded like Figma
-    padding: 16,
-    marginBottom: 16,
-    // Soft shadow for premium look
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.04,
-    shadowRadius: 12,
-    elevation: 3,
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: 'transparent',
+    marginBottom: 24, // Keep spacing between cards
   },
   cardHeader: {
     flexDirection: 'row',
@@ -149,21 +139,21 @@ const styles = StyleSheet.create({
   },
   infoColumn: {
     flex: 1,
-    marginLeft: 16,
+    marginLeft: 12, // Reduced to give more space for text column
   },
   titleText: {
     fontSize: 16,
     fontWeight: '700',
     color: '#000000',
-    marginBottom: 8,
+    marginBottom: 6,
     lineHeight: 20,
     letterSpacing: -0.2,
-    paddingRight: 55, // Prevent text overlap with views count
+    paddingRight: 40, // Reduced from 55 since views count is flat and needs less space
   },
   metaRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 8, // Compact spacing
     marginBottom: 4,
   },
   metaItem: {
@@ -174,7 +164,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   infoText: {
-    fontSize: 13,
+    fontSize: 12, // Compact size matching target design subtext
     fontWeight: '500',
     color: '#333333',
     letterSpacing: -0.1,
@@ -196,8 +186,8 @@ const styles = StyleSheet.create({
   },
   actionsRow: {
     flexDirection: 'row',
-    marginTop: 12,
-    gap: 8,
+    marginTop: 8,
+    gap: 6, // Compact spacing
   },
   joinButton: {
     backgroundColor: '#000000',
