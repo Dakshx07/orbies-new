@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: 20,
-    marginLeft: 20,   // Figma: left: 40px (listContainer already adds 20)
+    marginLeft: 2,   // Figma: left: 40px (listContainer already adds 20)
   },
   searchContainer: {
     flexDirection: 'row',
@@ -345,21 +345,20 @@ const styles = StyleSheet.create({
   sectionHeaderRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'baseline',
+    alignItems: 'center',
     marginTop: 4,
     marginBottom: 16,
+    paddingTop: 6, // Top clearance for tall cursive letters
   },
   sectionTitleText: {
     fontFamily: 'Caveat_700Bold',  // Figma Hand equivalent
     fontSize: 24,
     color: '#1A1A1A',
-    lineHeight: 28,
   },
   sectionCountText: {
     fontFamily: 'Caveat_700Bold',  // Figma Hand equivalent
     fontSize: 22,
     color: '#FF7A00',
-    lineHeight: 26,
   },
   emptyContainer: {
     alignItems: 'center',

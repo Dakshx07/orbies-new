@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   imagePlaceholder: {
     width: 106,
     height: 107,
-    borderRadius: 24, // Exact Figma specification
+    borderRadius: 24, 
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: 'rgba(0, 0, 0, 0.08)',
@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
   },
   infoColumn: {
     flex: 1,
-    marginLeft: 12, // Reduced to give more space for text column
+    marginLeft: 12,
+    paddingTop: 8, // Vertically center text column next to 107px box
   },
   titleText: {
     fontSize: 16,
