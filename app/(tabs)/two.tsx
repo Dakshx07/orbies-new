@@ -222,6 +222,14 @@ export default function ExploreScreen() {
           </View>
         }
       />
+
+      {/* Bottom Gradient Fade-out Overlay */}
+      <LinearGradient
+        colors={['rgba(254, 252, 247, 0)', 'rgba(254, 252, 247, 0.95)', '#FEFCF7']}
+        locations={[0, 0.5, 1]}
+        style={styles.bottomFadeOverlay}
+        pointerEvents="none"
+      />
     </View>
   );
 }
@@ -230,6 +238,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FEFCF7', // Warm off-white cream background
+  },
+  bottomFadeOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 120, // High enough to softly fade elements above the floating tab bar
   },
   listContainer: {
     paddingHorizontal: 20,
@@ -359,6 +374,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Caveat_700Bold',  // Figma Hand equivalent
     fontSize: 22,
     color: '#FF7A00',
+    paddingRight: 8, // Safety padding to prevent cursive exclamation mark clipping
   },
   emptyContainer: {
     alignItems: 'center',
