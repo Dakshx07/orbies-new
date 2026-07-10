@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '500',
     color: '#000000',
     marginBottom: 6,
     lineHeight: 20,
@@ -164,9 +164,9 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   infoText: {
-    fontSize: 12, // Compact size matching target design subtext
+    fontSize: 14, // Compact size matching target design subtext
     fontWeight: '500',
-    color: '#333333',
+    color: '#000000',
     letterSpacing: -0.1,
   },
   viewsContainer: {

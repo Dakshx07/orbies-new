@@ -5,8 +5,8 @@ export const ExploreTextSvg = (props: SvgProps) => {
   return (
     <Svg
       width={147}
-      height={60}
-      viewBox="36 30 150 70"
+      height={67.32}
+      viewBox="36 43 150 69"
       fill="none"
       {...props}
     >
