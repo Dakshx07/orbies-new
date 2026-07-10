@@ -176,7 +176,7 @@ export default function ExploreScreen() {
               <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
                 <Text style={styles.bannerTitleText}>Goa Beach Cleanup Campaign</Text>
                 <Text style={styles.bannerSubText}>Join the movement this July</Text>
-                
+
                 <View style={styles.chevronCircle}>
                   <Feather name="chevron-right" size={24} color="#FFFFFF" />
                 </View>
@@ -186,7 +186,7 @@ export default function ExploreScreen() {
               <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
                 <Text style={styles.bannerTitleText}>Design Masterclass</Text>
                 <Text style={styles.bannerSubText}>Sharpen your product design craft</Text>
-                
+
                 <View style={styles.chevronCircle}>
                   <Feather name="chevron-right" size={24} color="#FFFFFF" />
                 </View>
@@ -196,7 +196,7 @@ export default function ExploreScreen() {
               <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
                 <Text style={styles.bannerTitleText}>Startup Pitch Deck</Text>
                 <Text style={styles.bannerSubText}>Pitch to top tier investors</Text>
-                
+
                 <View style={styles.chevronCircle}>
                   <Feather name="chevron-right" size={24} color="#FFFFFF" />
                 </View>
@@ -227,7 +227,7 @@ export default function ExploreScreen() {
       <LinearGradient
         colors={['rgba(254, 252, 247, 0)', 'rgba(254, 252, 247, 0.95)', '#FEFCF7']}
         locations={[0, 0.5, 1]}
-        style={styles.bottomFadeOverlay}
+        style={[styles.bottomFadeOverlay, { height: insets.bottom + 90 }]}
         pointerEvents="none"
       />
     </View>
@@ -244,7 +244,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 120, // High enough to softly fade elements above the floating tab bar
   },
   listContainer: {
     paddingHorizontal: 20,
