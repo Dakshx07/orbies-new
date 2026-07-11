@@ -121,15 +121,7 @@ export const CustomTabBar: React.FC<CustomTabBarProps> = ({ state, descriptors, 
   return (
     <View style={[styles.container, { bottom: insets.bottom + 16 }]}>
       <View style={styles.bar}>
-        {/* Item 1: Home (Index Tab) */}
-        <TabButton
-          active={activeRouteName === 'index'}
-          onPress={() => navigateToTab('index')}
-        >
-          {(color) => <ReiconHome color={color} size={25} />}
-        </TabButton>
-
-        {/* Item 2: Search (Two Tab) */}
+        {/* Item 1: Search (Two Tab) */}
         <TabButton
           active={activeRouteName === 'two'}
           onPress={() => navigateToTab('two')}
@@ -137,9 +129,17 @@ export const CustomTabBar: React.FC<CustomTabBarProps> = ({ state, descriptors, 
           {(color) => <ReiconSearch color={color} size={25} />}
         </TabButton>
 
-        {/* Item 3: Likes (Heart - Placeholder) */}
+        {/* Item 2: Likes (Heart - Placeholder) */}
         <TabButton active={false}>
           {(color) => <ReiconHeart color={color} size={25} />}
+        </TabButton>
+
+        {/* Item 3: Home (Index Tab) */}
+        <TabButton
+          active={activeRouteName === 'index'}
+          onPress={() => navigateToTab('index')}
+        >
+          {(color) => <ReiconHome color={color} size={25} />}
         </TabButton>
 
         {/* Item 4: Messages (Send - Placeholder) */}
