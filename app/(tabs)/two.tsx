@@ -8,10 +8,12 @@ import {
   FlatList,
   Pressable,
   useWindowDimensions,
+  ImageBackground,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { Feather } from '@expo/vector-icons';
+import Svg, { Path, Defs, LinearGradient as SvgLinearGradient, Stop } from 'react-native-svg';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { ExploreTextSvg } from '../../components/ExploreTextSvg';
@@ -82,6 +84,66 @@ const INITIAL_OPPORTUNITIES: OpportunityData[] = [
 ];
 
 const FILTER_TAGS = ['All', 'Near me', 'Free', 'Paid', 'Trending'];
+
+// Featured banner item datasets
+interface BannerData {
+  id: string;
+  eyebrow: string;
+  title: string;
+  subText: string;
+  bgImage: string;
+}
+
+const FEATURED_BANNERS: BannerData[] = [
+  {
+    id: 'b1',
+    eyebrow: 'EVENT',
+    title: 'World Tarot Day',
+    subText: 'Discover the magic of tarot reading',
+    bgImage: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600',
+  },
+  {
+    id: 'b2',
+    eyebrow: 'SPOTLIGHT',
+    title: 'Design Masterclass',
+    subText: 'Sharpen your product design craft',
+    bgImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600',
+  },
+  {
+    id: 'b3',
+    eyebrow: 'CAMPAIGN',
+    title: 'Goa Beach Cleanup',
+    subText: 'Join the green movement this July',
+    bgImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600',
+  },
+];
+
+// Swelling diamond gold symbol from Figma screenshot
+const EventSymbol: React.FC = () => (
+  <Svg width={18} height={42} viewBox="0 0 18 42" fill="none">
+    <Path
+      d="M9 2V12M9 30V40"
+      stroke="url(#gold_grad)"
+      strokeWidth={3}
+      strokeLinecap="round"
+    />
+    <Path
+      d="M9 12C12.5 15.5 13.5 21 9 30C4.5 21 5.5 15.5 9 12Z"
+      fill="url(#gold_grad)"
+    />
+    <Path
+      d="M9 17L11.5 21L9 25L6.5 21L9 17Z"
+      fill="#FFFFFF"
+    />
+    <Defs>
+      <SvgLinearGradient id="gold_grad" x1="9" y1="2" x2="9" y2="40" gradientUnits="userSpaceOnUse">
+        <Stop offset="0" stopColor="#FFD23F" />
+        <Stop offset="0.5" stopColor="#FF9F1C" />
+        <Stop offset="1" stopColor="#FF5400" />
+      </SvgLinearGradient>
+    </Defs>
+  </Svg>
+);
 
 export default function ExploreScreen() {
   const insets = useSafeAreaInsets();
@@ -162,7 +224,7 @@ export default function ExploreScreen() {
               })}
             </ScrollView>
 
-            {/* 4. Large Orange Spotlight Card Carousel/Banner */}
+            {/* 4. Large Spotlight Card Carousel/Banner with Liquid Glass Styles */}
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -172,35 +234,37 @@ export default function ExploreScreen() {
               decelerationRate="fast"
               contentOffset={{ x: screenWidth - 68, y: 0 }}
             >
-              {/* Card 1: Goa Beach Cleanup Campaign */}
-              <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
-                <Text style={styles.bannerTitleText}>Goa Beach Cleanup Campaign</Text>
-                <Text style={styles.bannerSubText}>Join the movement this July</Text>
+              {FEATURED_BANNERS.map((banner) => (
+                <ImageBackground
+                  key={banner.id}
+                  source={{ uri: banner.bgImage }}
+                  style={[styles.bannerCard, { width: screenWidth - 80 }]}
+                  imageStyle={styles.bannerCardImage}
+                >
+                  <LinearGradient
+                    colors={['rgba(0, 18, 163, 0.4)', 'rgba(0, 0, 0, 0.72)']}
+                    start={{ x: 0.2, y: 0 }}
+                    end={{ x: 0.8, y: 1 }}
+                    style={StyleSheet.absoluteFillObject}
+                  />
 
-                <View style={styles.chevronCircle}>
-                  <Feather name="chevron-right" size={24} color="#FFFFFF" />
-                </View>
-              </View>
+                  <View style={styles.bannerContentRow}>
+                    <View style={styles.symbolContainer}>
+                      <EventSymbol />
+                    </View>
 
-              {/* Card 2: Design Masterclass (Center Card) */}
-              <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
-                <Text style={styles.bannerTitleText}>Design Masterclass</Text>
-                <Text style={styles.bannerSubText}>Sharpen your product design craft</Text>
+                    <View style={styles.bannerTextColumn}>
+                      <Text style={styles.bannerEyebrowText}>{banner.eyebrow}</Text>
+                      <Text style={styles.bannerTitleText} numberOfLines={1}>{banner.title}</Text>
+                      <Text style={styles.bannerSubText} numberOfLines={1}>{banner.subText}</Text>
+                    </View>
+                  </View>
 
-                <View style={styles.chevronCircle}>
-                  <Feather name="chevron-right" size={24} color="#FFFFFF" />
-                </View>
-              </View>
-
-              {/* Card 3: Startup Pitch Deck */}
-              <View style={[styles.orangeBanner, { width: screenWidth - 80 }]}>
-                <Text style={styles.bannerTitleText}>Startup Pitch Deck</Text>
-                <Text style={styles.bannerSubText}>Pitch to top tier investors</Text>
-
-                <View style={styles.chevronCircle}>
-                  <Feather name="chevron-right" size={24} color="#FFFFFF" />
-                </View>
-              </View>
+                  <View style={styles.chevronCircle}>
+                    <Feather name="chevron-right" size={16} color="#FFFFFF" />
+                  </View>
+                </ImageBackground>
+              ))}
             </ScrollView>
 
             {/* 5. Section Header Text Row — Caveat handwritten font */}
@@ -320,41 +384,62 @@ const styles = StyleSheet.create({
     gap: 12,
   },
 
-  orangeBanner: {
-    height: 96,
-    backgroundColor: '#FF7A00', // Brand Orange
-    borderRadius: 32,
-    paddingVertical: 20,
-    paddingLeft: 24,
-    paddingRight: 64, // Keep spacing for chevron circle
+  bannerCard: {
+    height: 104, // Slightly taller for premium layout
+    borderRadius: 24, // Sleek capsule shape matching opportunity card
+    overflow: 'hidden',
     justifyContent: 'center',
     position: 'relative',
+  },
+  bannerCardImage: {
+    borderRadius: 24,
+  },
+  bannerContentRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 20,
+    paddingRight: 64, // Keep spacing for chevron circle
+  },
+  symbolContainer: {
+    marginRight: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bannerTextColumn: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  bannerEyebrowText: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#B0C8FF', // Light purple/blue eyebrow text
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+    marginBottom: 2,
   },
   bannerTitleText: {
     fontSize: 18,
     fontWeight: '800',
     color: '#FFFFFF',
-    marginBottom: 4,
+    marginBottom: 2,
     letterSpacing: -0.2,
   },
   bannerSubText: {
     fontSize: 12,
     fontWeight: '500',
-    color: 'rgba(255, 255, 255, 0.85)',
+    color: 'rgba(255, 255, 255, 0.75)',
   },
   chevronCircle: {
     position: 'absolute',
     right: 20,
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)', // Glassmorphic background chevron
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
   },
   sectionHeaderRow: {
     flexDirection: 'row',
