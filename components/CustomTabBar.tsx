@@ -175,9 +175,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#737373', // Rich graphite gray capsule
-    borderRadius: 32, // Perfect capsule shape for 64px height (64 / 2 = 32)
-    height: 64, // Exact Figma height specification
-    width: 284, // Exact Figma width specification
+    borderRadius: 32, 
+    height: 64, 
+    width: 284,
     paddingHorizontal: 12, // Tight spacing between icons
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.1)',
