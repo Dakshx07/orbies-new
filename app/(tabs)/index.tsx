@@ -241,9 +241,9 @@ export default function Home() {
   const insets = useSafeAreaInsets();
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
 
-  // Dynamic canvas size (1.35x screen size to allow comfortable sticker spacing while preventing empty screen voids)
-  const canvasWidth = screenWidth * 1.35;
-  const canvasHeight = screenHeight * 1.35;
+  // Dynamic canvas size (1.2x screen size to allow comfortable sticker spacing while preventing empty screen voids)
+  const canvasWidth = screenWidth * 1.2;
+  const canvasHeight = screenHeight * 1.2;
 
   // Scroll translation shared values for infinite panning
   const translateX = useSharedValue(0);
@@ -268,36 +268,31 @@ export default function Home() {
   const buildSpacedBubbles = useCallback(
     (data: OpportunityGridData[]): FloatingBubbleData[] => {
       const list: FloatingBubbleData[] = [];
+      const size = 90;
+      const cellWidth = 145;
+      const cellHeight = 145;
+      const cols = Math.floor(canvasWidth / cellWidth);
+      const rows = Math.floor(canvasHeight / cellHeight);
+
+      const offsetX = (canvasWidth - (cols * cellWidth)) / 2;
+      const offsetY = (canvasHeight - (rows * cellHeight)) / 2;
+
+      // Generate all grid cells
+      const cells: { col: number; row: number }[] = [];
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          cells.push({ col: c, row: r });
+        }
+      }
 
       data.forEach((opp, i) => {
-        const size = 100;
-        let x = 0;
-        let y = 0;
-        let attempts = 0;
-        let foundPlace = false;
+        // Distribute the opportunities evenly across the available cells
+        const cellIndex = Math.floor((i * cells.length) / data.length) % cells.length;
+        const cell = cells[cellIndex];
 
-        while (attempts < 1000 && !foundPlace) {
-          x = Math.random() * (canvasWidth - size - 40) + 20;
-          y = Math.random() * (canvasHeight - size - 40) + 20;
-
-          let overlap = false;
-          for (const other of list) {
-            const dx = x + size / 2 - (other.x + other.size / 2);
-            const dy = y + size / 2 - (other.y + other.size / 2);
-            const distance = Math.hypot(dx, dy);
-            const minDistance = (size + other.size) / 2 + MIN_GAP;
-
-            if (distance < minDistance) {
-              overlap = true;
-              break;
-            }
-          }
-
-          if (!overlap) {
-            foundPlace = true;
-          }
-          attempts++;
-        }
+        // Center the sticker inside the cell
+        const x = offsetX + cell.col * cellWidth + (cellWidth - size) / 2;
+        const y = offsetY + cell.row * cellHeight + (cellHeight - size) / 2;
 
         list.push({
           ...opp,
@@ -306,7 +301,7 @@ export default function Home() {
           size,
           source: getStickerSource(opp.category, opp.title),
           shadowColor: getShadowColor(opp.category),
-          rotateDeg: Math.random() * 20 - 10,
+          rotateDeg: 0, // Kept at 0 for a neat grid look
         });
       });
 
