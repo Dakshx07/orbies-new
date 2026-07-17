@@ -14,8 +14,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { useSharedValue, withDecay } from 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { BlurView } from 'expo-blur';
-
 import { SvgComponent } from '../../components/SvgComponent';
 import { ClaySticker } from '../../components/ClaySticker';
 import { OpportunityGridData } from '../../components/OpportunityGridTile';
