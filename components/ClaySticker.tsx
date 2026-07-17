@@ -52,16 +52,13 @@ export const ClaySticker: React.FC<ClayStickerProps> = ({
 
   // Reanimated style for translating and wrapping the sticker infinitely
   const stickerAnimatedStyle = useAnimatedStyle(() => {
-    const buffer = size + 30;
-    const rangeX = canvasWidth + 2 * buffer;
-    const rangeY = canvasHeight + 2 * buffer;
+    // Tiling wrap: wrap as soon as the center of the sticker leaves the canvas
+    const halfSize = size / 2;
+    const rawX = x + translateX.value + halfSize;
+    const rawY = y + translateY.value + halfSize;
 
-    // Center wrap math
-    const rawX = x + translateX.value + buffer;
-    const rawY = y + translateY.value + buffer;
-
-    const wrappedX = (((rawX % rangeX) + rangeX) % rangeX) - buffer;
-    const wrappedY = (((rawY % rangeY) + rangeY) % rangeY) - buffer;
+    const wrappedX = (((rawX % canvasWidth) + canvasWidth) % canvasWidth) - halfSize;
+    const wrappedY = (((rawY % canvasHeight) + canvasHeight) % canvasHeight) - halfSize;
 
     return {
       transform: [
@@ -150,7 +147,7 @@ const styles = StyleSheet.create({
   labelText: {
     fontFamily: 'System',
     fontSize: 14,
-    fontWeight: '850',
+    fontWeight: '800',
     color: '#FF7C54',
     textAlign: 'center',
   },

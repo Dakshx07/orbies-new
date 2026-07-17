@@ -239,8 +239,8 @@ export default function Home() {
   const insets = useSafeAreaInsets();
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
 
-  // Dynamic canvas size (1.35x screen size to allow comfortable sticker spacing while preventing empty screen voids)
-  const canvasWidth = screenWidth * 1.35;
+  // Compact width to eliminate horizontal voids, slightly taller height to allow vertical breathing room
+  const canvasWidth = screenWidth * 1.05;
   const canvasHeight = screenHeight * 1.35;
 
   // Scroll translation shared values for infinite panning
@@ -266,45 +266,38 @@ export default function Home() {
   const buildSpacedBubbles = useCallback(
     (data: OpportunityGridData[]): FloatingBubbleData[] => {
       const list: FloatingBubbleData[] = [];
+      const size = 85;
+
+      const spots: { x: number; y: number }[] = [];
+      const rows = 8;
+      const rowHeight = (canvasHeight - 140) / rows; // Leave padding at top/bottom
+
+      for (let r = 0; r < rows; r++) {
+        // Calculate vertical position for the row
+        const y = 90 + r * rowHeight + (rowHeight - size) / 2;
+
+        if (r % 2 === 0) {
+          // Even row: Left and Right spots
+          spots.push({ x: 25, y });
+          spots.push({ x: canvasWidth - size - 25, y });
+        } else {
+          // Odd row: Center spot
+          spots.push({ x: (canvasWidth - size) / 2, y });
+        }
+      }
 
       data.forEach((opp, i) => {
-        const size = 100;
-        let x = 0;
-        let y = 0;
-        let attempts = 0;
-        let foundPlace = false;
-
-        while (attempts < 1000 && !foundPlace) {
-          x = Math.random() * (canvasWidth - size - 40) + 20;
-          y = Math.random() * (canvasHeight - size - 40) + 20;
-
-          let overlap = false;
-          for (const other of list) {
-            const dx = x + size / 2 - (other.x + other.size / 2);
-            const dy = y + size / 2 - (other.y + other.size / 2);
-            const distance = Math.hypot(dx, dy);
-            const minDistance = (size + other.size) / 2 + MIN_GAP;
-
-            if (distance < minDistance) {
-              overlap = true;
-              break;
-            }
-          }
-
-          if (!overlap) {
-            foundPlace = true;
-          }
-          attempts++;
-        }
+        // Map each item to a unique staggered spot
+        const spot = spots[i % spots.length];
 
         list.push({
           ...opp,
-          x,
-          y,
+          x: spot.x,
+          y: spot.y,
           size,
           source: getStickerSource(opp.category, opp.title),
           shadowColor: getShadowColor(opp.category),
-          rotateDeg: Math.random() * 20 - 10,
+          rotateDeg: Math.random() * 16 - 8,
         });
       });
 
